@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Explore Bangladesh – Local Tour Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f8f4;--surface:#ffffff;--text:#1d2a22;--muted:#5d6b62;--line:#dfe8e0;
+  --green:#0b6b3a;--green-d:#08502b;--red:#d63a3a;--nav:#ffffffee;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0f1712;--surface:#18231c;--text:#e8f0ea;--muted:#9db0a3;--line:#27382d;--green:#3fbf7a;--green-d:#2fa566;--nav:#101a14ee}
+}
+:root[data-theme="dark"]{--bg:#0f1712;--surface:#18231c;--text:#e8f0ea;--muted:#9db0a3;--line:#27382d;--green:#3fbf7a;--green-d:#2fa566;--nav:#101a14ee}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(70px + env(safe-area-inset-top,0px))}
+body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--nav);backdrop-filter:blur(8px)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;background:var(--nav);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.logo{font-weight:700;font-size:1.1rem;white-space:nowrap}
+.logo span{color:var(--green)}
+nav ul{list-style:none;display:flex;gap:18px;margin:0;padding:0;overflow-x:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;white-space:nowrap}
+nav a:hover{color:var(--green)}
+.hero{position:relative;text-align:center;color:#fff;padding:90px 20px 100px;background:radial-gradient(circle at 50% 38%,#d63a3a 0 70px,transparent 71px),linear-gradient(160deg,#0b6b3a,#06402a)}
+.hero h1{position:relative;margin:150px 0 10px;font-size:clamp(1.7rem,6vw,2.8rem);line-height:1.2}
+.hero p{position:relative;margin:0 auto 24px;max-width:520px;opacity:.92}
+.btn{display:inline-block;padding:12px 26px;border-radius:999px;background:#fff;color:#08502b;font-weight:600;text-decoration:none}
+.container{max-width:1050px;margin:0 auto;padding:0 18px 50px}
+.about-card{display:flex;gap:26px;align-items:center;margin-top:-50px;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 10px 30px #0000001a}
+.avatar{flex:0 0 150px;width:150px;height:150px;border-radius:50%;border:4px solid var(--green);overflow:hidden;background:var(--bg);display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;color:var(--muted);font-size:.78rem;position:relative}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.about-card h2{margin:0 0 8px;font-size:1.4rem}
+.about-card p{margin:0 0 14px;color:var(--muted)}
+.stats{display:flex;gap:22px;flex-wrap:wrap}
+.stats b{display:block;font-size:1.25rem;color:var(--green)}
+.stats small{color:var(--muted)}
+.section-title{text-align:center;margin:54px 0 6px;font-size:1.7rem}
+.sub{text-align:center;color:var(--muted);margin:0 0 28px}
+.tour-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.tour-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s}
+.tour-card:hover{transform:translateY(-4px)}
+.tour-img{position:relative;height:190px}
+.tour-img svg{width:100%;height:100%;display:block}
+.badge{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:.75rem;font-weight:600;padding:4px 12px;border-radius:999px}
+.tour-content{padding:20px;display:flex;flex-direction:column;flex:1}
+.tour-content h3{margin:0 0 8px;font-size:1.15rem}
+.tour-content p{margin:0 0 12px;color:var(--muted);font-size:.92rem}
+.tour-content ul{margin:0 0 16px;padding-left:20px;color:var(--muted);font-size:.88rem}
+.tour-meta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+.price{font-weight:700;color:var(--green)}
+.price small{font-weight:400;color:var(--muted)}
+.btn-book{background:var(--green);color:#fff;text-decoration:none;padding:9px 20px;border-radius:999px;font-weight:600;font-size:.88rem}
+.btn-book:hover{background:var(--green-d)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.gallery figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.gallery svg{width:100%;height:auto;display:block}
+.gallery figcaption{padding:10px 14px;font-size:.88rem;color:var(--muted);text-align:center}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:10px}
+.why div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;text-align:center}
+.why b{display:block;margin-bottom:4px}
+.why span{color:var(--muted);font-size:.9rem}
+.contact{margin-top:54px;text-align:center;background:linear-gradient(160deg,#0b6b3a,#06402a);color:#fff;border-radius:22px;padding:40px 20px}
+.contact h2{margin:0 0 8px}
+.contact p{margin:4px 0;opacity:.92}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:22px 16px}
+@media (max-width:640px){
+  .about-card{flex-direction:column;text-align:center}
+  .stats{justify-content:center}
+  nav ul{gap:14px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Explore <span>Bangladesh</span></div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#packages">Tours</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <h1>Discover the Green Heart of Bangladesh</h1>
+  <p>Travel with a trusted local expert and a personal tour guide who knows every river, hill and village path.</p>
+  <a class="btn" href="#packages">View Tour Packages</a>
+</section>
+
+<div class="container">
+
+  <div class="about-card" id="about">
+    <label class="avatar" title="Tap to change photo">
+      <img src="data:image/jpeg;base64,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" alt="Tour guide profile photo">
+      <input type="file" accept="image/*" id="photoInput" aria-label="Choose profile photo">
+    </label>
+    <div>
+      <h2>Welcome! I’m your tour guide</h2>
+      <p>My goal is to show you the real beauty of our rivers, hills, forests and shady green villages. Step away from the busy city, spend quality time in nature, and let me plan a smooth, memorable trip for you.</p>
+      <div class="stats">
+        <div><b>3</b><small>Signature tours</small></div>
+        <div><b>100%</b><small>Local knowledge</small></div>
+        <div><b>24/7</b><small>Trip support</small></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title" id="packages">Our Tour Packages</h2>
+  <p class="sub">Handpicked journeys across Bangladesh</p>
+
+  <div class="tour-grid">
+
+    <div class="tour-card">
+      <div class="tour-img">
+        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-label="Sunset over a river with a boat">
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6a35b"/><stop offset="1" stop-color="#f9d9a0"/></linearGradient></defs>
+          <rect width="400" height="200" fill="url(#g1)"/>
+          <circle cx="280" cy="95" r="34" fill="#d63a3a"/>
+          <rect y="110" width="400" height="90" fill="#2f8f6b"/>
+          <path d="M0 125q50-10 100 0t100 0 100 0 100 0" stroke="#bfe6d4" stroke-width="3" fill="none" opacity=".7"/>
+          <path d="M0 150q50-10 100 0t100 0 100 0 100 0" stroke="#bfe6d4" stroke-width="3" fill="none" opacity=".6"/>
+          <path d="M120 135h90q-10 16-30 16h-30q-20 0-30-16z" fill="#5a3a22"/>
+          <path d="M165 135V100l30 35z" fill="#fff"/>
+          <rect x="30" y="80" width="5" height="40" fill="#4a3320"/><path d="M32 80q-22 2-28 16M32 80q22 2 28 16M32 80q-6-18-20-22M32 80q6-18 20-22" stroke="#0b6b3a" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span class="badge">Popular</span>
+      </div>
+      <div class="tour-content">
+        <h3>Shady Village Life</h3>
+        <p>Breathe in the scent of the Bengal soil. What you will enjoy on this tour:</p>
+        <ul>
+          <li>Visit Kushtia’s Lalon Akhra and the Shilaidaha Tagore Kuthibari.</li>
+          <li>Overnight stay in a traditional mud house with fresh rice and home-cooked meals.</li>
+          <li>Boat ride at sunset on the Padma and picking water lilies from the beel.</li>
+          <li>Rural trails by bullock cart or van.</li>
+          <li>Fresh date-palm juice and traditional pitha from a clay stove.</li>
+        </ul>
+        <div class="tour-meta">
+          <span class="price"><small>Contact for price</small></span>
+          <a href="#contact" class="btn-book">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tour-card">
+      <div class="tour-img">
+        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-label="Rolling tea garden hills">
+          <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe3f2"/><stop offset="1" stop-color="#eaf6ee"/></linearGradient></defs>
+          <rect width="400" height="200" fill="url(#g2)"/>
+          <path d="M0 110q80-50 170-10t230-20v120H0z" fill="#6bb56f"/>
+          <path d="M0 140q100-40 200-5t200-15v80H0z" fill="#3f9a55"/>
+          <path d="M0 175q120-30 240-5t160-10v40H0z" fill="#26763f"/>
+          <g stroke="#1d5c32" stroke-width="2" opacity=".5" fill="none"><path d="M20 160q60-12 120-4"/><path d="M180 150q60-10 120-2"/><path d="M60 185q80-14 160-6"/></g>
+          <circle cx="330" cy="45" r="20" fill="#fff6c9"/>
+        </svg>
+      </div>
+      <div class="tour-content">
+        <h3>Sreemangal &amp; Ratargul Adventure</h3>
+        <p>Get lost in the kingdom of tea, trek through Lawachara National Park and glide through the Ratargul swamp forest by boat.</p>
+        <div class="tour-meta">
+          <span class="price"><small>Contact for price</small></span>
+          <a href="#contact" class="btn-book">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tour-card">
+      <div class="tour-img">
+        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-label="Mangrove forest and river">
+          <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ccfc0"/><stop offset="1" stop-color="#d6efe2"/></linearGradient></defs>
+          <rect width="400" height="200" fill="url(#g3)"/>
+          <rect y="130" width="400" height="70" fill="#2b6f78"/>
+          <g fill="#14532d"><circle cx="30" cy="105" r="32"/><circle cx="85" cy="95" r="38"/><circle cx="150" cy="108" r="30"/><circle cx="250" cy="100" r="34"/><circle cx="315" cy="92" r="40"/><circle cx="375" cy="108" r="30"/></g>
+          <rect y="118" width="400" height="14" fill="#14532d"/>
+          <path d="M0 150q50-8 100 0t100 0 100 0 100 0" stroke="#bfe6e3" stroke-width="3" fill="none" opacity=".6"/>
+          <path d="M0 175q50-8 100 0t100 0 100 0 100 0" stroke="#bfe6e3" stroke-width="3" fill="none" opacity=".5"/>
+          <path d="M160 160h80q-8 12-24 12h-32q-16 0-24-12z" fill="#7a4b27"/>
+        </svg>
+      </div>
+      <div class="tour-content">
+        <h3>Into the Sundarbans</h3>
+        <p>Cruise the rivers and creeks of the world’s largest mangrove forest. Search for the Royal Bengal Tiger, spotted deer and wildlife on forest trails.</p>
+        <div class="tour-meta">
+          <span class="price"><small>Contact for price</small></span>
+          <a href="#contact" class="btn-book">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">Village Life Gallery</h2>
+  <p class="sub">Scenes from the Bangladeshi countryside</p>
+  <div class="gallery">
+    <figure>
+      <svg viewBox="0 0 300 200" aria-label="Thatched village home with banana trees">
+        <rect width="300" height="200" fill="#bfe3f2"/><circle cx="250" cy="40" r="18" fill="#fff3b0"/>
+        <rect y="130" width="300" height="70" fill="#5fae5b"/>
+        <rect x="95" y="95" width="90" height="55" fill="#b07a4a"/><path d="M82 98L140 55l58 43z" fill="#d9b45a"/><rect x="128" y="115" width="24" height="35" fill="#4a2f1a"/>
+        <rect x="228" y="100" width="6" height="50" fill="#6b8e3a"/><path d="M231 100q-30-5-40 15M231 100q30-5 40 15M231 100q-10-25-30-25M231 100q10-25 30-25" stroke="#2f8f3a" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <rect x="45" y="75" width="5" height="60" fill="#4a3320"/><path d="M47 75q-22 2-28 16M47 75q22 2 28 16M47 75q-6-18-20-22M47 75q6-18 20-22" stroke="#0b6b3a" stroke-width="5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <figcaption>A thatched village home</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 300 200" aria-label="Farmer in a green paddy field">
+        <rect width="300" height="200" fill="#cfe9f5"/>
+        <g fill="#2f7d4a"><ellipse cx="40" cy="98" rx="38" ry="20"/><ellipse cx="120" cy="94" rx="44" ry="22"/><ellipse cx="230" cy="98" rx="50" ry="20"/></g>
+        <rect y="105" width="300" height="95" fill="#7cc36a"/>
+        <g stroke="#4f9d4a" stroke-width="3"><path d="M0 125h300M0 145h300M0 165h300M0 185h300"/></g>
+        <path d="M128 112l24-16 24 16z" fill="#e6c35c"/><circle cx="152" cy="118" r="7" fill="#8a5a3a"/><rect x="144" y="125" width="16" height="28" fill="#c0392b"/><path d="M148 153v22M156 153v22" stroke="#8a5a3a" stroke-width="4"/>
+      </svg>
+      <figcaption>Green paddy fields</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 300 200" aria-label="Shapla water lily pond">
+        <rect width="300" height="200" fill="#2b7f86"/>
+        <g fill="#3fa35a"><ellipse cx="70" cy="140" rx="34" ry="12"/><ellipse cx="170" cy="110" rx="30" ry="11"/><ellipse cx="240" cy="150" rx="36" ry="13"/><ellipse cx="120" cy="175" rx="30" ry="10"/></g>
+        <g fill="#fff"><ellipse cx="60" cy="128" rx="7" ry="14"/><ellipse cx="74" cy="130" rx="7" ry="14" transform="rotate(25 74 130)"/><ellipse cx="48" cy="132" rx="7" ry="14" transform="rotate(-25 48 132)"/><ellipse cx="170" cy="98" rx="6" ry="12"/><ellipse cx="181" cy="100" rx="6" ry="12" transform="rotate(25 181 100)"/><ellipse cx="159" cy="100" rx="6" ry="12" transform="rotate(-25 159 100)"/><ellipse cx="240" cy="138" rx="7" ry="14"/><ellipse cx="253" cy="140" rx="7" ry="14" transform="rotate(25 253 140)"/><ellipse cx="227" cy="140" rx="7" ry="14" transform="rotate(-25 227 140)"/></g>
+        <g fill="#f4c542"><circle cx="60" cy="138" r="4"/><circle cx="170" cy="108" r="3.5"/><circle cx="240" cy="148" r="4"/></g>
+        <path d="M12 200V120M24 200V105M284 200V125" stroke="#2f6b3a" stroke-width="4"/>
+      </svg>
+      <figcaption>Shapla (water lily) pond</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 300 200" aria-label="Bullock cart on a country road">
+        <rect width="300" height="200" fill="#f9dcb0"/><circle cx="60" cy="60" r="22" fill="#d63a3a"/>
+        <rect y="120" width="300" height="20" fill="#5fae5b"/><rect y="140" width="300" height="60" fill="#c9a66b"/>
+        <ellipse cx="80" cy="125" rx="30" ry="16" fill="#8b5a35"/><circle cx="118" cy="118" r="10" fill="#8b5a35"/><path d="M112 110q-4-8-10-8M124 110q4-8 10-8" stroke="#4a2f1a" stroke-width="3" fill="none"/><path d="M60 138v22M72 140v20M88 140v20M98 138v22" stroke="#6b4426" stroke-width="5"/>
+        <path d="M126 120L158 112" stroke="#4a2f1a" stroke-width="3"/><rect x="155" y="100" width="80" height="22" fill="#7a4b27"/><circle cx="195" cy="135" r="20" fill="none" stroke="#4a2f1a" stroke-width="4"/><path d="M175 135h40M195 115v40" stroke="#4a2f1a" stroke-width="2"/>
+      </svg>
+      <figcaption>Bullock cart on a country road</figcaption>
+    </figure>
+  </div>
+
+  <h2 class="section-title">Popular Destinations</h2>
+  <p class="sub">Sundarbans, Cox’s Bazar and Sajek Valley</p>
+  <div class="gallery">
+    <figure>
+      <svg viewBox="0 0 300 200" aria-label="Sundarbans mangrove forest with a boat">
+        <rect width="300" height="200" fill="#9ccfc0"/><circle cx="250" cy="35" r="16" fill="#fff6c9"/>
+        <rect y="125" width="300" height="75" fill="#2b6f78"/>
+        <g fill="#14532d"><circle cx="25" cy="98" r="28"/><circle cx="70" cy="88" r="32"/><circle cx="120" cy="100" r="26"/><circle cx="190" cy="92" r="30"/><circle cx="245" cy="86" r="34"/><circle cx="290" cy="100" r="26"/></g>
+        <rect y="112" width="300" height="14" fill="#14532d"/>
+        <g stroke="#0f3f22" stroke-width="2"><path d="M20 126v-8M34 126v-6M80 126v-8M96 126v-6M170 126v-8M210 126v-6M262 126v-8"/></g>
+        <path d="M0 150q40-8 75 0t75 0 75 0 75 0" stroke="#bfe6e3" stroke-width="3" fill="none" opacity=".6"/>
+        <path d="M110 165h70q-8 12-22 12h-26q-14 0-22-12z" fill="#7a4b27"/><rect x="135" y="148" width="22" height="17" fill="#e8d9b5"/>
+      </svg>
+      <figcaption>Sundarbans, the world’s largest mangrove forest</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 300 200" aria-label="Cox’s Bazar sea beach at sunset">
+        <rect width="300" height="110" fill="#f6a35b"/><rect y="70" width="300" height="40" fill="#f9d9a0"/>
+        <circle cx="150" cy="108" r="34" fill="#d63a3a"/>
+        <rect y="108" width="300" height="45" fill="#2a8fb0"/>
+        <g stroke="#fff" stroke-width="3" fill="none" opacity=".75"><path d="M0 125q25-6 50 0t50 0 50 0 50 0 50 0 50 0"/><path d="M0 142q25-6 50 0t50 0 50 0 50 0 50 0 50 0"/></g>
+        <path d="M0 153q75-12 150-4t150-8v59H0z" fill="#f0d9a0"/>
+        <rect x="36" y="105" width="5" height="70" fill="#4a3320"/><path d="M38 105q-24 2-30 18M38 105q24 2 30 18M38 105q-6-20-22-24M38 105q6-20 22-24" stroke="#0b6b3a" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M210 160v-34" stroke="#4a3320" stroke-width="3"/><path d="M190 128q20-22 40 0z" fill="#d63a3a"/><path d="M200 128q10-22 20 0z" fill="#fff"/>
+      </svg>
+      <figcaption>Cox’s Bazar, the longest natural sea beach</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 300 200" aria-label="Sajek Valley hills above the clouds">
+        <rect width="300" height="200" fill="#a9d8f0"/>
+        <path d="M0 110q60-50 130-15t170-30v135H0z" fill="#6aa37a"/>
+        <g fill="#fff" opacity=".92"><ellipse cx="60" cy="125" rx="60" ry="14"/><ellipse cx="190" cy="118" rx="70" ry="13"/><ellipse cx="270" cy="135" rx="50" ry="12"/><ellipse cx="130" cy="142" rx="70" ry="12"/></g>
+        <path d="M0 160q80-30 160-10t140-10v60H0z" fill="#3f8f4f"/>
+        <rect x="98" y="142" width="36" height="22" fill="#c9a66b"/><path d="M92 144l24-20 24 20z" fill="#d63a3a"/>
+        <rect x="180" y="150" width="28" height="18" fill="#c9a66b"/><path d="M175 152l19-16 19 16z" fill="#2a8fb0"/>
+        <circle cx="250" cy="40" r="16" fill="#fff6c9"/>
+      </svg>
+      <figcaption>Sajek Valley, the kingdom of clouds</figcaption>
+    </figure>
+  </div>
+
+  <h2 class="section-title">Why Travel With Me</h2>
+  <div class="why">
+    <div><b>Local Expert</b><span>Real stories and hidden spots, not just tourist stops.</span></div>
+    <div><b>Small Groups</b><span>Personal attention and a relaxed pace.</span></div>
+    <div><b>Fair Prices</b><span>Transparent pricing with no surprise costs.</span></div>
+    <div><b>Safe &amp; Comfortable</b><span>Trusted boats, stays and drivers.</span></div>
+  </div>
+
+  <div class="contact" id="contact">
+    <h2>Plan Your Trip Today</h2>
+    <p>Tell me your dates and the tour you like, and I’ll arrange the rest.</p>
+    <p>Phone / WhatsApp: <a href="tel:+8801746924292" style="color:#fff">+880 1746-924292</a></p>
+    <p>Email: <a href="mailto:maharuzahmedbd24@gmail.com" style="color:#fff">maharuzahmedbd24@gmail.com</a></p>
+  </div>
+
+</div>
+
+<footer>© 2026 Explore Bangladesh. All rights reserved.</footer>
+
+<script>
+(function(){
+  var input=document.getElementById('photoInput');
+  var avatar=input.parentNode;
+  input.addEventListener('change',function(){
+    var f=input.files&&input.files[0];
+    if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      var img=document.createElement('img');
+      img.src=r.result;img.alt='Tour guide profile photo';
+      var hint=document.getElementById('avatarHint');
+      if(hint)hint.remove();
+      var old=avatar.querySelector('img');if(old)old.remove();
+      avatar.insertBefore(img,input);
+    };
+    r.readAsDataURL(f);
+  });
+})();
+</script>
+</body>
+</html>
